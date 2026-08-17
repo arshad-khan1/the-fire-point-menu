@@ -1353,7 +1353,7 @@ export default function Home() {
                     onClick={() => handleCravingClick(craving)}
                     className="group flex flex-col items-center justify-center rounded-2xl border border-[#baa17d]/70 bg-[#ede7dc] p-2.5 text-center text-[#4a2a04] transition hover:border-[#4a2a04] hover:bg-[#e4d8c4] active:scale-95"
                   >
-                    <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl border-2 border-[#4a2a04] bg-[#f6f0e5] shadow-xs mb-1.5 transition-transform group-hover:scale-105">
+                    <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-[#f6f0e5] shadow-xs mb-1.5 transition-transform group-hover:scale-105">
                       <Image
                         src={
                           categoryImages[craving.imageKey] ||
