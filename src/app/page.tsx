@@ -368,13 +368,6 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const currentSection = useMemo(() => {
-    return (
-      menuSectionsData.find((sec) => sec.id === activeSectionId) ||
-      menuSectionsData[0]
-    );
-  }, [activeSectionId]);
-
   // Helper to smoothly center active navigation pills in horizontal scroll containers
   const centerActivePill = useCallback(
     (container: HTMLElement | null, activeSelector: string) => {
@@ -662,30 +655,42 @@ export default function Home() {
         return { matches: false, score: 0, highlightWords: [] };
       }
 
-      const { tokens } = searchEngineContext;
+      const { tokens, rawQuery } = searchEngineContext;
 
       if (tokens.length === 0) {
         return { matches: true, score: 100, highlightWords: [] };
       }
 
+      const cleanRawQuery = cleanToken(rawQuery);
+      const cleanItemName = cleanToken(item.name);
+      const lowerItemName = item.name.toLowerCase();
+      const lowerRawQuery = rawQuery.toLowerCase().trim();
+
       const itemTokens = normalizeWords(item.name);
       const categoryTokens = normalizeWords(categoryName);
       const sectionTokens = normalizeWords(sectionLabel);
-      const allTokens = [
-        ...itemTokens,
-        ...categoryTokens,
-        ...sectionTokens,
-        ...(item.tags ? item.tags.flatMap(normalizeWords) : []),
-      ];
-
-      const compressedItemName = cleanToken(item.name);
-      const compressedCategory = cleanToken(categoryName);
+      const tagTokens = item.tags ? item.tags.flatMap(normalizeWords) : [];
 
       let totalScore = 0;
       const matchedHighlightWords: string[] = [];
       let detectedConcept: string | undefined;
       let isTypo = false;
       let correctedWord: string | undefined;
+
+      // 1. Heavy score boost for exact item name phrase matches
+      if (cleanItemName === cleanRawQuery) {
+        totalScore += 2000;
+      } else if (
+        lowerRawQuery.length >= 3 &&
+        lowerItemName.includes(lowerRawQuery)
+      ) {
+        totalScore += 1000;
+      } else if (
+        cleanRawQuery.length >= 3 &&
+        cleanItemName.includes(cleanRawQuery)
+      ) {
+        totalScore += 800;
+      }
 
       // Every query token MUST be satisfied by this item
       for (const tCtx of tokens) {
@@ -714,47 +719,76 @@ export default function Home() {
           }
         }
 
-        // Check compressed match (e.g. "periperi" matches "Peri Peri")
-        if (!tokenSatisfied && cleanOrig.length >= 3) {
-          if (compressedItemName.includes(cleanOrig)) {
-            tokenSatisfied = true;
-            bestTokenScore = Math.max(bestTokenScore, 90);
-            matchedHighlightWords.push(cleanOrig);
-          } else if (compressedCategory.includes(cleanOrig)) {
-            tokenSatisfied = true;
-            bestTokenScore = Math.max(bestTokenScore, 80);
-          }
-        }
-
-        // Check fuzzy token matching against item name & category tokens
+        // Direct Item Name Token Match (Highest priority)
         if (!tokenSatisfied) {
-          for (const targetToken of allTokens) {
-            const fuzzy = checkTokenFuzzyMatch(tCtx.original, targetToken);
+          for (const iToken of itemTokens) {
+            const fuzzy = checkTokenFuzzyMatch(tCtx.original, iToken);
             if (fuzzy.isMatch) {
               tokenSatisfied = true;
-              bestTokenScore = Math.max(bestTokenScore, fuzzy.score);
+              const tokenScore =
+                fuzzy.score === 100 ? 300 : fuzzy.score >= 80 ? 200 : 100;
+              bestTokenScore = Math.max(bestTokenScore, tokenScore);
               matchedHighlightWords.push(fuzzy.targetWord);
               if (fuzzy.isTypo) {
                 isTypo = true;
                 correctedWord = fuzzy.targetWord;
               }
+            }
+          }
+        }
+
+        // Compressed Item Name Match (e.g. "periperi" vs "Peri Peri")
+        if (!tokenSatisfied && cleanOrig.length >= 3) {
+          if (cleanItemName.includes(cleanOrig)) {
+            tokenSatisfied = true;
+            bestTokenScore = Math.max(bestTokenScore, 250);
+            matchedHighlightWords.push(cleanOrig);
+          }
+        }
+
+        // Category / Section Token Match
+        if (!tokenSatisfied) {
+          const catSecTokens = [...categoryTokens, ...sectionTokens];
+          for (const targetToken of catSecTokens) {
+            const fuzzy = checkTokenFuzzyMatch(tCtx.original, targetToken);
+            if (fuzzy.isMatch) {
+              tokenSatisfied = true;
+              bestTokenScore = Math.max(bestTokenScore, 80);
               break;
             }
           }
         }
 
-        // Check expanded synonyms specific to this token only
+        // Tags Token Match
+        if (!tokenSatisfied) {
+          for (const targetToken of tagTokens) {
+            const fuzzy = checkTokenFuzzyMatch(tCtx.original, targetToken);
+            if (fuzzy.isMatch) {
+              tokenSatisfied = true;
+              bestTokenScore = Math.max(bestTokenScore, 60);
+              matchedHighlightWords.push(fuzzy.targetWord);
+              break;
+            }
+          }
+        }
+
+        // Expanded synonyms specific to this token
         if (!tokenSatisfied) {
           for (const synTerm of tCtx.expanded) {
             const cleanSyn = cleanToken(synTerm);
             if (cleanSyn === "veg" || cleanSyn === "vegetarian") {
               if (item.isVeg) {
                 tokenSatisfied = true;
-                bestTokenScore = Math.max(bestTokenScore, 65);
+                bestTokenScore = Math.max(bestTokenScore, 40);
                 break;
               }
             } else {
-              const matchedWord = allTokens.find((t) => {
+              const matchedWord = [
+                ...itemTokens,
+                ...categoryTokens,
+                ...sectionTokens,
+                ...tagTokens,
+              ].find((t) => {
                 const cT = cleanToken(t);
                 return (
                   cT === cleanSyn || (cT.length >= 4 && cT.startsWith(cleanSyn))
@@ -762,7 +796,7 @@ export default function Home() {
               });
               if (matchedWord) {
                 tokenSatisfied = true;
-                bestTokenScore = Math.max(bestTokenScore, 65);
+                bestTokenScore = Math.max(bestTokenScore, 40);
                 detectedConcept = synTerm;
                 matchedHighlightWords.push(matchedWord);
                 break;
@@ -791,7 +825,9 @@ export default function Home() {
 
   // Filtered menu sections based on query, dietary filter, and budget filter
   const filteredSections = useMemo(() => {
-    return menuSectionsData
+    const isSearching = Boolean(searchQuery.trim());
+
+    const result = menuSectionsData
       .map((section) => {
         const filteredCategories = section.categories
           .map((cat) => {
@@ -811,28 +847,51 @@ export default function Home() {
               })
               .filter(Boolean) as (MenuItem & { matchInfo: SearchMatchInfo })[];
 
+            if (isSearching) {
+              // Sort items by relevance score descending so exact matches appear first
+              filteredItems.sort(
+                (a, b) => b.matchInfo.score - a.matchInfo.score,
+              );
+            }
+
+            const maxCategoryScore = filteredItems.reduce(
+              (max, item) => Math.max(max, item.matchInfo.score),
+              0,
+            );
+
             return {
               ...cat,
               items: filteredItems,
+              maxScore: maxCategoryScore,
             };
           })
           .filter((cat) => cat.items.length > 0);
 
+        if (isSearching) {
+          // Sort categories by highest item match score descending
+          filteredCategories.sort((a, b) => b.maxScore - a.maxScore);
+        }
+
+        const maxSectionScore = filteredCategories.reduce(
+          (max, cat) => Math.max(max, cat.maxScore),
+          0,
+        );
+
         return {
           ...section,
           categories: filteredCategories,
+          maxScore: maxSectionScore,
         };
       })
       .filter((section) => section.categories.length > 0);
-  }, [dietaryFilter, matchItem]);
 
-  const totalResultsCount = useMemo(() => {
-    return filteredSections.reduce(
-      (sum, sec) =>
-        sum + sec.categories.reduce((cSum, cat) => cSum + cat.items.length, 0),
-      0,
-    );
-  }, [filteredSections]);
+    if (isSearching) {
+      // Sort sections by highest item match score descending
+      result.sort((a, b) => b.maxScore - a.maxScore);
+    }
+
+    return result;
+  }, [dietaryFilter, matchItem, searchQuery]);
 
   const getJumpBarHeight = (sectionId?: string): number => {
     if (searchQuery || !sectionId) return 0;
@@ -928,16 +987,13 @@ export default function Home() {
     }
   };
 
-
   return (
     <main className="min-h-screen bg-[#ede7dc] text-[#4a2a04] selection:bg-[#4a2a04]/15">
       {/* 1. ALWAYS-VISIBLE TOP STICKY NAVIGATION (Point 5: Navigation Friction Reduction) */}
       <header
         ref={topHeaderRef}
         className={`sticky top-0 z-40 border-b-2 border-[#4a2a04] bg-[#f6f0e5]/95 backdrop-blur-md transition-all duration-300 ease-in-out ${
-          isScrolled
-            ? "shadow-md"
-            : "shadow-[0_4px_20px_rgba(74,42,4,0.08)]"
+          isScrolled ? "shadow-md" : "shadow-[0_4px_20px_rgba(74,42,4,0.08)]"
         }`}
       >
         <div
@@ -988,7 +1044,7 @@ export default function Home() {
                     : "max-h-6 opacity-100 mb-0.5"
                 }`}
               >
-                <span className="inline-block rounded-full bg-[#e4d8c4] px-2 py-0.25 text-[9px] font-bold tracking-[0.25em] text-[#72512b] uppercase">
+                <span className="inline-block rounded-full bg-[#e4d8c4] px-2 py-px text-[9px] font-bold tracking-[0.25em] text-[#72512b] uppercase">
                   Cafe & Restro
                 </span>
               </div>
@@ -1039,7 +1095,7 @@ export default function Home() {
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search dishes, drinks, 'dumplings', 'cold coffee'..."
+              placeholder="Search 'Pizza', 'Cold Coffee', 'Chilli Paneer', 'under 150'..."
               className={`w-full border-2 border-[#4a2a04] bg-[#ede7dc] pr-10 font-medium text-[#4a2a04] placeholder-[#8a6b47] shadow-inner transition-all duration-300 ease-in-out focus:bg-[#fcfaf7] focus:outline-none focus:ring-2 focus:ring-[#4a2a04] ${
                 isScrolled
                   ? "rounded-xl py-1 pl-8.5 text-xs"
@@ -1135,7 +1191,9 @@ export default function Home() {
                     type="button"
                     onClick={() => scrollToSection(sec.id)}
                     className={`flex shrink-0 items-center gap-1 rounded-xl border font-bold transition-all duration-300 ${
-                      isScrolled ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-1 text-xs"
+                      isScrolled
+                        ? "px-2 py-0.5 text-[11px]"
+                        : "px-2.5 py-1 text-xs"
                     } ${
                       isActive
                         ? "border-[#4a2a04] bg-[#4a2a04] text-[#f6f0e5] shadow-xs"
@@ -1227,7 +1285,10 @@ export default function Home() {
                     <div className="flex items-center gap-1.5 min-w-0">
                       <div className="relative h-6 w-6 shrink-0 overflow-hidden rounded-md border border-[#4a2a04]/40 bg-[#f6f0e5]">
                         <Image
-                          src={categoryImages[cat.imageKey] || categoryImages.starters}
+                          src={
+                            categoryImages[cat.imageKey] ||
+                            categoryImages.starters
+                          }
                           alt=""
                           fill
                           sizes="24px"
@@ -1251,56 +1312,6 @@ export default function Home() {
 
       {/* 4. MAIN CONTENT CONTAINER */}
       <div className="mx-auto max-w-7xl px-3 py-4 sm:px-6 lg:px-8 pb-28 sm:pb-36">
-        {/* Search Feedback Banner (When searching) */}
-        {searchQuery && (
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border-2 border-[#4a2a04] bg-[#f6f0e5] p-3.5 shadow-xs">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="rounded-md bg-[#e4d8c4] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#72512b]">
-                  Smart Search
-                </span>
-                {searchEngineContext.isTypo &&
-                  searchEngineContext.typoSuggestions.length > 0 && (
-                    <span className="rounded-md bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold text-amber-800">
-                      ✨ Typo match:{" "}
-                      {searchEngineContext.typoSuggestions.join(", ")}
-                    </span>
-                  )}
-                {searchEngineContext.isSynonym && (
-                  <span className="rounded-md bg-sky-100 px-1.5 py-0.5 text-[9px] font-bold text-sky-800">
-                    💡 Related concept search
-                  </span>
-                )}
-                {parsedPriceConstraint && (
-                  <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 text-[9px] font-bold text-emerald-800">
-                    💰 Price ≤ ₹{parsedPriceConstraint}
-                  </span>
-                )}
-              </div>
-              <p className="text-base font-bold text-[#4a2a04]">
-                Found {totalResultsCount} dish
-                {totalResultsCount === 1 ? "" : "es"} matching &ldquo;
-                {searchQuery}&rdquo;
-              </p>
-              {searchEngineContext.conceptExplanations.length > 0 && (
-                <p className="text-xs text-[#72512b]">
-                  Showing items related to:{" "}
-                  <span className="font-semibold text-[#4a2a04]">
-                    {searchEngineContext.conceptExplanations.join(", ")}
-                  </span>
-                </p>
-              )}
-            </div>
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              className="rounded-xl border border-[#4a2a04] bg-[#ede7dc] px-3 py-1.5 text-xs font-bold text-[#4a2a04] transition hover:bg-[#4a2a04] hover:text-[#f6f0e5]"
-            >
-              Clear Search (✕)
-            </button>
-          </div>
-        )}
-
         {/* ========================================================================= */}
         {/* DISCOVERY / HERO ZONE (Points 1, 2, 3, 4: Reduce Overload & Social Proof) */}
         {/* Shown when not actively searching to make the first interaction focused!  */}
@@ -1344,7 +1355,10 @@ export default function Home() {
                   >
                     <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl border-2 border-[#4a2a04] bg-[#f6f0e5] shadow-xs mb-1.5 transition-transform group-hover:scale-105">
                       <Image
-                        src={categoryImages[craving.imageKey] || categoryImages.starters}
+                        src={
+                          categoryImages[craving.imageKey] ||
+                          categoryImages.starters
+                        }
                         alt={craving.label}
                         fill
                         sizes="44px"
@@ -1419,7 +1433,10 @@ export default function Home() {
                           <VegBadge isVeg={item.isVeg} />
                           <div className="relative h-4 w-4 shrink-0 overflow-hidden rounded-full border border-[#4a2a04]/40">
                             <Image
-                              src={categoryImages[item.imageKey] || categoryImages.starters}
+                              src={
+                                categoryImages[item.imageKey] ||
+                                categoryImages.starters
+                              }
                               alt=""
                               fill
                               sizes="16px"
@@ -1537,7 +1554,9 @@ export default function Home() {
                       style={{
                         scrollMarginTop: `${
                           headerHeight +
-                          (!searchQuery && section.chunks && section.chunks.length > 1
+                          (!searchQuery &&
+                          section.chunks &&
+                          section.chunks.length > 1
                             ? 48
                             : 0) +
                           16
@@ -1775,12 +1794,16 @@ export default function Home() {
               Enjoyed your visit?
             </h2>
             <p className="mx-auto max-w-md text-xs sm:text-sm text-[#5c3d16] leading-relaxed">
-              Every dish is freshly prepared to order with love. Your review helps us grow and keep serving you the best food experience!
+              Every dish is freshly prepared to order with love. Your review
+              helps us grow and keep serving you the best food experience!
             </p>
           </div>
 
           {/* 5 Gold Stars Rating Display */}
-          <div className="flex items-center justify-center gap-1.5 text-amber-500 text-2xl" aria-label="5 stars rating">
+          <div
+            className="flex items-center justify-center gap-1.5 text-amber-500 text-2xl"
+            aria-label="5 stars rating"
+          >
             <span>⭐</span>
             <span>⭐</span>
             <span>⭐</span>

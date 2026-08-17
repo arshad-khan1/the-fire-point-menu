@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bowlby_One_SC, Jost, Oswald } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const bodyFont = Jost({
@@ -34,7 +35,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${bodyFont.variable} ${sectionFont.variable} ${headingFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
