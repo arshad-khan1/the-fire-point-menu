@@ -1096,7 +1096,7 @@ export default function Home() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search 'Pizza', 'Cold Coffee', 'Chilli Paneer', 'under 150'..."
-              className={`w-full border-2 border-[#4a2a04] bg-[#ede7dc] pr-10 font-medium text-[#4a2a04] placeholder-[#8a6b47] shadow-inner transition-all duration-300 ease-in-out focus:bg-[#fcfaf7] focus:outline-none focus:ring-2 focus:ring-[#4a2a04] ${
+              className={`w-full border-2 border-[#4a2a04] bg-[#ede7dc] pr-10 font-medium text-[#4a2a04] placeholder-[#8a6b47] shadow-inner transition-all duration-300 ease-in-out focus:bg-[#ede7dc] focus:outline-none focus:ring-2 focus:ring-[#4a2a04] ${
                 isScrolled
                   ? "rounded-xl py-1 pl-8.5 text-xs"
                   : "rounded-2xl py-2 pl-9.5 text-sm"
