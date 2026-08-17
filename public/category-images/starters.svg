@@ -1,0 +1,53 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6F0E5"/>
+      <stop offset="100%" stop-color="#E4D8C4"/>
+    </linearGradient>
+    <linearGradient id="glaze" x1="60" y1="60" x2="140" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E26A2C"/>
+      <stop offset="100%" stop-color="#9A2C00"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A2A04" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background Card Circle -->
+  <rect width="200" height="200" rx="36" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="188" height="188" rx="30" stroke="#4A2A04" stroke-opacity="0.2" stroke-width="2"/>
+
+  <!-- Platter Plate -->
+  <ellipse cx="100" cy="148" rx="72" ry="24" fill="#EDE7DC" stroke="#4A2A04" stroke-width="3" filter="url(#shadow)"/>
+  <ellipse cx="100" cy="146" rx="60" ry="18" fill="#F6F0E5" stroke="#BAA17D" stroke-width="1.5"/>
+
+  <!-- Skewer Stick -->
+  <line x1="40" y1="140" x2="162" y2="60" stroke="#8A5A2B" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Starter Morsel 1 (Paneer/Chicken Cube) -->
+  <g filter="url(#shadow)">
+    <rect x="52" y="112" width="28" height="28" rx="6" transform="rotate(-12 52 112)" fill="url(#glaze)" stroke="#4A2A04" stroke-width="2.5"/>
+    <!-- Herbs/Garnish -->
+    <circle cx="62" cy="120" r="2" fill="#22C55E"/>
+    <circle cx="70" cy="126" r="1.5" fill="#FEF08A"/>
+  </g>
+
+  <!-- Starter Morsel 2 (Pepper/Onion Cube) -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="90" width="28" height="28" rx="6" transform="rotate(15 80 90)" fill="#22C55E" stroke="#4A2A04" stroke-width="2.5"/>
+    <rect x="84" y="94" width="20" height="20" rx="4" fill="#15803D"/>
+  </g>
+
+  <!-- Starter Morsel 3 (Glazed Tikka Cube) -->
+  <g filter="url(#shadow)">
+    <rect x="110" y="70" width="30" height="30" rx="7" transform="rotate(-8 110 70)" fill="url(#glaze)" stroke="#4A2A04" stroke-width="2.5"/>
+    <circle cx="120" cy="80" r="2.5" fill="#FEF08A"/>
+    <circle cx="128" cy="88" r="2" fill="#22C55E"/>
+    <path d="M116 76 Q124 74 132 82" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Sizzling Sparkles / Flame Accent -->
+  <path d="M148 54 Q152 46 150 40 Q156 48 152 56 Z" fill="#E26A2C"/>
+  <circle cx="140" cy="46" r="2" fill="#F59E0B"/>
+  <circle cx="156" cy="62" r="1.5" fill="#E26A2C"/>
+</svg>

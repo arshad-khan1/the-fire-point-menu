@@ -1,0 +1,51 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6F0E5"/>
+      <stop offset="100%" stop-color="#E4D8C4"/>
+    </linearGradient>
+    <linearGradient id="ironPlate" x1="40" y1="120" x2="160" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#361C02"/>
+      <stop offset="100%" stop-color="#1A0D01"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A2A04" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" rx="36" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="188" height="188" rx="30" stroke="#4A2A04" stroke-opacity="0.2" stroke-width="2"/>
+
+  <!-- Wooden Platter Base -->
+  <g filter="url(#shadow)">
+    <ellipse cx="100" cy="144" rx="76" ry="26" fill="#8A5A2B" stroke="#4A2A04" stroke-width="3.5"/>
+    <ellipse cx="100" cy="142" rx="68" ry="20" fill="#72512B"/>
+    
+    <!-- Cast Iron Sizzler Pan -->
+    <ellipse cx="100" cy="138" rx="60" ry="17" fill="url(#ironPlate)" stroke="#4A2A04" stroke-width="3"/>
+    <ellipse cx="100" cy="136" rx="54" ry="13" fill="#2C1700"/>
+  </g>
+
+  <!-- Sizzling Grilled Patty / Skillet Item -->
+  <g filter="url(#shadow)">
+    <rect x="65" y="118" width="70" height="30" rx="10" fill="#C2410C" stroke="#4A2A04" stroke-width="2.5"/>
+    <!-- Grill Marks -->
+    <line x1="78" y1="122" x2="90" y2="144" stroke="#4A2A04" stroke-width="3"/>
+    <line x1="94" y1="122" x2="106" y2="144" stroke="#4A2A04" stroke-width="3"/>
+    <line x1="110" y1="122" x2="122" y2="144" stroke="#4A2A04" stroke-width="3"/>
+  </g>
+
+  <!-- Side Veggies (Fries/Broccoli/Tomato) -->
+  <circle cx="58" cy="134" r="6" fill="#22C55E" stroke="#4A2A04" stroke-width="1.5"/>
+  <circle cx="142" cy="134" r="6" fill="#DC2626" stroke="#4A2A04" stroke-width="1.5"/>
+
+  <!-- Intense Sizzling Smoke Trails -->
+  <path d="M75 110 Q65 90 78 72 Q90 54 80 38" stroke="#E26A2C" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M100 108 Q115 88 102 68 Q90 48 104 30" stroke="#4A2A04" stroke-opacity="0.5" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <path d="M125 112 Q135 92 122 74 Q110 56 120 40" stroke="#E26A2C" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- Sparks -->
+  <circle cx="70" cy="85" r="2" fill="#F59E0B"/>
+  <circle cx="130" cy="80" r="2.5" fill="#E26A2C"/>
+  <circle cx="108" cy="55" r="2" fill="#FBBF24"/>
+</svg>

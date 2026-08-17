@@ -1,0 +1,47 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6F0E5"/>
+      <stop offset="100%" stop-color="#E4D8C4"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A2A04" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" rx="36" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="188" height="188" rx="30" stroke="#4A2A04" stroke-opacity="0.2" stroke-width="2"/>
+
+  <!-- Salad Bowl -->
+  <g filter="url(#shadow)">
+    <ellipse cx="100" cy="154" rx="60" ry="16" fill="#EDE7DC" stroke="#4A2A04" stroke-width="3"/>
+    <path d="M40 100 C40 146, 62 156, 100 156 C138 156, 160 146, 160 100 Z" fill="#22C55E" opacity="0.15"/>
+    <path d="M40 100 C40 146, 62 156, 100 156 C138 156, 160 146, 160 100 Z" stroke="#4A2A04" stroke-width="3.5" fill="#F6F0E5"/>
+    <ellipse cx="100" cy="100" rx="60" ry="18" fill="#EDE7DC" stroke="#4A2A04" stroke-width="3"/>
+  </g>
+
+  <!-- Crisp Lettuce Leaves Heap -->
+  <g filter="url(#shadow)">
+    <path d="M52 98 Q65 72 85 92 Q100 70 120 90 Q138 74 148 98 Z" fill="#22C55E" stroke="#15803D" stroke-width="2"/>
+    <path d="M68 95 Q80 82 95 96 Q110 80 128 95" fill="#4ADE80" stroke="#15803D" stroke-width="1.5"/>
+  </g>
+
+  <!-- Tomatoes, Cucumber & Olives -->
+  <!-- Cherry Tomato 1 -->
+  <circle cx="75" cy="90" r="9" fill="#EF4444" stroke="#4A2A04" stroke-width="2"/>
+  <circle cx="72" cy="87" r="2.5" fill="#FCA5A5"/>
+
+  <!-- Cherry Tomato 2 -->
+  <circle cx="125" cy="94" r="8" fill="#EF4444" stroke="#4A2A04" stroke-width="2"/>
+
+  <!-- Cucumber Slice -->
+  <circle cx="100" cy="85" r="10" fill="#86EFAC" stroke="#15803D" stroke-width="2"/>
+  <circle cx="100" cy="85" r="6" fill="#BBF7D0"/>
+
+  <!-- Black Olive -->
+  <ellipse cx="112" cy="90" rx="5" ry="4" transform="rotate(-20 112 90)" fill="#1F2937" stroke="#4A2A04" stroke-width="1.5"/>
+  <ellipse cx="88" cy="98" rx="5" ry="4" transform="rotate(30 88 98)" fill="#1F2937" stroke="#4A2A04" stroke-width="1.5"/>
+
+  <!-- Feta Cheese Cube -->
+  <rect x="94" y="94" width="10" height="10" rx="2" fill="#FFFFFF" stroke="#4A2A04" stroke-width="1.5"/>
+</svg>

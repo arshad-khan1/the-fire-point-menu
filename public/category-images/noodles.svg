@@ -1,0 +1,40 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6F0E5"/>
+      <stop offset="100%" stop-color="#E4D8C4"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A2A04" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" rx="36" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="188" height="188" rx="30" stroke="#4A2A04" stroke-opacity="0.2" stroke-width="2"/>
+
+  <!-- Chopsticks lifting noodles -->
+  <line x1="50" y1="20" x2="145" y2="78" stroke="#4A2A04" stroke-width="4" stroke-linecap="round"/>
+  <line x1="65" y1="15" x2="155" y2="74" stroke="#4A2A04" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Lifted Noodles Strand -->
+  <path d="M105 72 Q95 90 100 110" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M115 70 Q125 90 112 110" stroke="#FBBF24" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M125 73 Q110 88 120 110" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- Noodle Bowl -->
+  <g filter="url(#shadow)">
+    <path d="M42 108 C42 156, 65 166, 100 166 C135 166, 158 156, 158 108 Z" fill="#E26A2C" stroke="#4A2A04" stroke-width="3.5"/>
+    <ellipse cx="100" cy="108" rx="58" ry="18" fill="#4A2A04"/>
+  </g>
+
+  <!-- Noodles Heap in Bowl -->
+  <ellipse cx="100" cy="106" rx="54" ry="15" fill="#F59E0B"/>
+  <path d="M55 106 Q70 100 85 108 Q100 114 115 104 Q130 96 145 106" stroke="#FEF08A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M60 102 Q80 110 100 102 Q120 95 140 102" stroke="#FBBF24" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Toppings (Veggies & Chilli) -->
+  <rect x="75" y="100" width="14" height="4" rx="2" fill="#22C55E" transform="rotate(-15 75 100)"/>
+  <rect x="110" y="104" width="12" height="4" rx="2" fill="#DC2626" transform="rotate(20 110 104)"/>
+  <circle cx="95" cy="102" r="2.5" fill="#FEF08A"/>
+  <circle cx="125" cy="100" r="2" fill="#22C55E"/>
+</svg>

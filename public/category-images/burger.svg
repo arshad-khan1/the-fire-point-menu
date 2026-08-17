@@ -1,0 +1,49 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6F0E5"/>
+      <stop offset="100%" stop-color="#E4D8C4"/>
+    </linearGradient>
+    <linearGradient id="bunGrad" x1="50" y1="40" x2="150" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="pattyGrad" x1="50" y1="120" x2="150" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#451A03"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A2A04" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" rx="36" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="188" height="188" rx="30" stroke="#4A2A04" stroke-opacity="0.2" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <!-- Bottom Bun -->
+    <path d="M48 152 C48 168, 152 168, 152 152 L146 142 C146 142, 54 142, 54 142 Z" fill="url(#bunGrad)" stroke="#4A2A04" stroke-width="3.5"/>
+
+    <!-- Patty -->
+    <rect x="42" y="124" width="116" height="20" rx="9" fill="url(#pattyGrad)" stroke="#4A2A04" stroke-width="3.5"/>
+
+    <!-- Melted Cheese Slice Drip -->
+    <path d="M46 122 L154 122 L145 136 L128 126 L110 142 L95 125 L75 138 L60 123 Z" fill="#FBBF24" stroke="#4A2A04" stroke-width="2"/>
+
+    <!-- Tomato Slice -->
+    <rect x="52" y="110" width="96" height="13" rx="6" fill="#EF4444" stroke="#4A2A04" stroke-width="3"/>
+
+    <!-- Crisp Wavy Lettuce Layer -->
+    <path d="M40 106 Q52 96 66 106 Q80 114 94 104 Q108 96 122 106 Q136 114 160 104 L154 112 Q136 120 122 112 Q108 104 94 112 Q80 120 66 112 Q52 104 40 112 Z" fill="#22C55E" stroke="#15803D" stroke-width="2"/>
+
+    <!-- Top Bun -->
+    <path d="M44 95 C44 46, 156 46, 156 95 Z" fill="url(#bunGrad)" stroke="#4A2A04" stroke-width="3.5"/>
+
+    <!-- Sesame Seeds on Top Bun -->
+    <ellipse cx="80" cy="66" rx="4" ry="2" transform="rotate(-20 80 66)" fill="#FFFFFF"/>
+    <ellipse cx="100" cy="58" rx="4" ry="2" fill="#FFFFFF"/>
+    <ellipse cx="120" cy="68" rx="4" ry="2" transform="rotate(25 120 68)" fill="#FFFFFF"/>
+    <ellipse cx="90" cy="78" rx="4" ry="2" transform="rotate(10 90 78)" fill="#FFFFFF"/>
+    <ellipse cx="112" cy="80" rx="4" ry="2" transform="rotate(-15 112 80)" fill="#FFFFFF"/>
+  </g>
+</svg>

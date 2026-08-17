@@ -1,0 +1,50 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6F0E5"/>
+      <stop offset="100%" stop-color="#E4D8C4"/>
+    </linearGradient>
+    <linearGradient id="coffeeGrad" x1="50" y1="90" x2="140" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#451A03"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A2A04" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" rx="36" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="188" height="188" rx="30" stroke="#4A2A04" stroke-opacity="0.2" stroke-width="2"/>
+
+  <!-- Coffee Saucer -->
+  <ellipse cx="95" cy="156" rx="66" ry="18" fill="#EDE7DC" stroke="#4A2A04" stroke-width="3" filter="url(#shadow)"/>
+  <ellipse cx="95" cy="154" rx="55" ry="13" fill="#F6F0E5"/>
+
+  <!-- Coffee Beans on Saucer -->
+  <g transform="translate(145, 148) rotate(30)">
+    <ellipse cx="0" cy="0" rx="6" ry="4" fill="#4A2A04"/>
+    <path d="M-4 0 C-1 -2, 1 2, 4 0" stroke="#F6F0E5" stroke-width="1.5" fill="none"/>
+  </g>
+  <g transform="translate(42, 150) rotate(-20)">
+    <ellipse cx="0" cy="0" rx="6" ry="4" fill="#4A2A04"/>
+    <path d="M-4 0 C-1 -2, 1 2, 4 0" stroke="#F6F0E5" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Coffee Cup Handle -->
+  <path d="M142 100 C165 100, 165 136, 140 136" stroke="#4A2A04" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <path d="M142 104 C158 104, 158 132, 140 132" stroke="#F6F0E5" stroke-width="3" fill="none"/>
+
+  <!-- Coffee Cup Body -->
+  <g filter="url(#shadow)">
+    <path d="M48 90 C48 142, 68 152, 95 152 C122 152, 142 142, 142 90 Z" fill="#F6F0E5" stroke="#4A2A04" stroke-width="3.5"/>
+    <ellipse cx="95" cy="90" rx="47" ry="15" fill="#EDE7DC" stroke="#4A2A04" stroke-width="3.5"/>
+    <ellipse cx="95" cy="91" rx="42" ry="12" fill="url(#coffeeGrad)"/>
+  </g>
+
+  <!-- Heart Latte Art -->
+  <path d="M95 97 C90 90, 80 90, 82 97 C84 104, 95 108, 95 108 C95 108, 106 104, 108 97 C110 90, 100 90, 95 97 Z" fill="#FEF08A"/>
+
+  <!-- Coffee Steam Whisps -->
+  <path d="M80 68 Q72 52 82 36" stroke="#BAA17D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M102 62 Q112 46 102 30" stroke="#4A2A04" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round" fill="none"/>
+</svg>

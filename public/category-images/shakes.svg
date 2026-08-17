@@ -1,0 +1,46 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6F0E5"/>
+      <stop offset="100%" stop-color="#E4D8C4"/>
+    </linearGradient>
+    <linearGradient id="shakeGrad" x1="60" y1="80" x2="140" y2="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#361C02"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A2A04" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" rx="36" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="188" height="188" rx="30" stroke="#4A2A04" stroke-opacity="0.2" stroke-width="2"/>
+
+  <!-- Straw -->
+  <line x1="125" y1="20" x2="95" y2="120" stroke="#E26A2C" stroke-width="6" stroke-linecap="round"/>
+  <line x1="125" y1="20" x2="95" y2="120" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round"/>
+
+  <!-- Milkshake Glass Base & Body -->
+  <g filter="url(#shadow)">
+    <!-- Base Foot -->
+    <ellipse cx="100" cy="172" rx="32" ry="8" fill="#EDE7DC" stroke="#4A2A04" stroke-width="3"/>
+    <rect x="94" y="152" width="12" height="20" fill="#EDE7DC" stroke="#4A2A04" stroke-width="2.5"/>
+
+    <!-- Glass Cup -->
+    <path d="M68 76 L78 152 L122 152 L132 76 Z" fill="url(#shakeGrad)" stroke="#4A2A04" stroke-width="3.5"/>
+    <ellipse cx="100" cy="76" rx="32" ry="9" fill="#FEF08A"/>
+  </g>
+
+  <!-- Whipped Cream Peak Top -->
+  <g filter="url(#shadow)">
+    <path d="M72 74 Q64 56 82 50 Q100 36 118 50 Q136 56 128 74 Z" fill="#FFFFFF" stroke="#4A2A04" stroke-width="3"/>
+    <path d="M90 48 Q100 32 110 48" stroke="#D97706" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- Cherry on Top -->
+  <circle cx="100" cy="34" r="8" fill="#DC2626" stroke="#4A2A04" stroke-width="2"/>
+  <path d="M100 26 Q110 18 116 22" stroke="#4A2A04" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+  <!-- Chocolate Drizzle / Chips -->
+  <path d="M78 84 Q88 95 86 108 M112 88 Q118 100 114 116" stroke="#451A03" stroke-width="3" stroke-linecap="round" fill="none"/>
+</svg>

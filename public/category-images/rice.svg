@@ -1,0 +1,48 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6F0E5"/>
+      <stop offset="100%" stop-color="#E4D8C4"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A2A04" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" rx="36" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="188" height="188" rx="30" stroke="#4A2A04" stroke-opacity="0.2" stroke-width="2"/>
+
+  <!-- Claypot Bowl -->
+  <g filter="url(#shadow)">
+    <!-- Handles -->
+    <rect x="32" y="112" width="16" height="10" rx="4" fill="#72512B" stroke="#4A2A04" stroke-width="2"/>
+    <rect x="152" y="112" width="16" height="10" rx="4" fill="#72512B" stroke="#4A2A04" stroke-width="2"/>
+
+    <!-- Bowl Base -->
+    <path d="M44 110 C44 158, 68 168, 100 168 C132 168, 156 158, 156 110 Z" fill="#8A5A2B" stroke="#4A2A04" stroke-width="3.5"/>
+    <ellipse cx="100" cy="110" rx="56" ry="16" fill="#4A2A04"/>
+  </g>
+
+  <!-- Rice Heap -->
+  <ellipse cx="100" cy="106" rx="52" ry="14" fill="#FEF08A"/>
+  
+  <!-- Rice Grains & Color Texture -->
+  <g fill="#F59E0B">
+    <ellipse cx="80" cy="104" rx="4" ry="2" transform="rotate(15 80 104)"/>
+    <ellipse cx="95" cy="100" rx="4" ry="2" transform="rotate(-20 95 100)"/>
+    <ellipse cx="110" cy="104" rx="4" ry="2" transform="rotate(10 110 104)"/>
+    <ellipse cx="125" cy="106" rx="4" ry="2" transform="rotate(-15 125 106)"/>
+    <ellipse cx="70" cy="108" rx="4" ry="2" transform="rotate(30 70 108)"/>
+  </g>
+
+  <!-- Fried Rice Veggie Mix (Corn, Peas, Carrot) -->
+  <circle cx="85" cy="102" r="3" fill="#22C55E"/>
+  <circle cx="115" cy="102" r="3" fill="#22C55E"/>
+  <circle cx="102" cy="107" r="3" fill="#DC2626"/>
+  <circle cx="75" cy="106" r="2.5" fill="#E26A2C"/>
+  <circle cx="128" cy="104" r="2.5" fill="#22C55E"/>
+
+  <!-- Steam -->
+  <path d="M85 78 Q78 65 85 52" stroke="#BAA17D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M115 75 Q122 62 115 48" stroke="#4A2A04" stroke-opacity="0.4" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+</svg>

@@ -1,0 +1,58 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6F0E5"/>
+      <stop offset="100%" stop-color="#E4D8C4"/>
+    </linearGradient>
+    <linearGradient id="steamerGrad" x1="30" y1="90" x2="170" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#4A2A04" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" rx="36" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="188" height="188" rx="30" stroke="#4A2A04" stroke-opacity="0.2" stroke-width="2"/>
+
+  <!-- Steamer Basket Exterior Base -->
+  <g filter="url(#shadow)">
+    <ellipse cx="100" cy="148" rx="72" ry="24" fill="#78350F" stroke="#4A2A04" stroke-width="3.5"/>
+    <path d="M28 106 C28 148, 55 156, 100 156 C145 156, 172 148, 172 106 Z" fill="url(#steamerGrad)" stroke="#4A2A04" stroke-width="3.5"/>
+    <ellipse cx="100" cy="106" rx="72" ry="22" fill="#FEF3C7" stroke="#4A2A04" stroke-width="3.5"/>
+    <ellipse cx="100" cy="106" rx="64" ry="17" fill="#FDE68A"/>
+  </g>
+
+  <!-- Dumplings (Momos) inside basket -->
+  <!-- Momo 1 (Left) -->
+  <g filter="url(#shadow)">
+    <path d="M55 106 C50 90, 75 80, 85 94 C95 108, 60 118, 55 106 Z" fill="#FFFFFF" stroke="#4A2A04" stroke-width="2.5"/>
+    <!-- Pleat lines -->
+    <path d="M68 92 C72 88, 76 96, 74 104" stroke="#D97706" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Momo 2 (Center Top) -->
+  <g filter="url(#shadow)">
+    <path d="M88 95 C82 78, 114 74, 122 88 C130 102, 94 110, 88 95 Z" fill="#FFFFFF" stroke="#4A2A04" stroke-width="2.5"/>
+    <path d="M102 82 C106 78, 110 88, 108 96" stroke="#D97706" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Momo 3 (Right) -->
+  <g filter="url(#shadow)">
+    <path d="M125 108 C120 92, 148 85, 155 98 C162 110, 130 120, 125 108 Z" fill="#FFFFFF" stroke="#4A2A04" stroke-width="2.5"/>
+    <path d="M138 94 C142 90, 145 98, 143 105" stroke="#D97706" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Red Spicy Chutney Dip Bowl in Center -->
+  <g filter="url(#shadow)">
+    <circle cx="100" cy="115" r="16" fill="#4A2A04"/>
+    <circle cx="100" cy="115" r="13" fill="#DC2626"/>
+    <circle cx="97" cy="112" r="3" fill="#EF4444"/>
+    <circle cx="104" cy="117" r="1.5" fill="#FEF08A"/>
+  </g>
+
+  <!-- Steam Whisps -->
+  <path d="M78 65 Q70 52 78 40" stroke="#BAA17D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M122 62 Q130 48 122 36" stroke="#4A2A04" stroke-opacity="0.3" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+</svg>
