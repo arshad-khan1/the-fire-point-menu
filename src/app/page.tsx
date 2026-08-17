@@ -298,7 +298,7 @@ function JumpToNavBar({
     <div
       data-jump-bar={section.id}
       style={{ top: `${headerHeight}px` }}
-      className="sticky z-30 -mx-3 px-3 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 bg-[#ede7dc]/95 backdrop-blur-md shadow-xs transition-all"
+      className="sticky z-30 -mx-3 px-3 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 bg-[#ede7dc]/95 backdrop-blur-md shadow-xs transition-colors"
     >
       <div
         ref={containerRef}
@@ -357,10 +357,15 @@ export default function Home() {
   const [isInMenuSection, setIsInMenuSection] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Track scroll position to shrink sticky header smoothly when scrolling down
+  // Track scroll position to shrink sticky header smoothly when scrolling down with hysteresis to prevent flickering
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY;
+      setIsScrolled((prev) => {
+        if (!prev && scrollY > 60) return true;
+        if (prev && scrollY < 20) return false;
+        return prev;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
