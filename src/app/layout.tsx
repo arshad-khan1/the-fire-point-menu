@@ -6,18 +6,21 @@ const bodyFont = Jost({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 const sectionFont = Bowlby_One_SC({
   variable: "--font-display",
   subsets: ["latin"],
   weight: "400",
+  display: "swap",
 });
 
 const headingFont = Oswald({
   variable: "--font-heading",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
