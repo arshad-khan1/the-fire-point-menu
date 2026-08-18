@@ -857,6 +857,16 @@ export default function Home() {
               filteredItems.sort(
                 (a, b) => b.matchInfo.score - a.matchInfo.score,
               );
+            } else {
+              // Sort items so those with explicit photo images appear at the top,
+              // and items without photo images appear down at the bottom of their category list.
+              filteredItems.sort((a, b) => {
+                const aHasImage = Boolean(a.image);
+                const bHasImage = Boolean(b.image);
+                if (aHasImage && !bHasImage) return -1;
+                if (!aHasImage && bHasImage) return 1;
+                return 0;
+              });
             }
 
             const maxCategoryScore = filteredItems.reduce(
@@ -1410,14 +1420,11 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="inline-block rounded-full bg-amber-500/20 px-2 py-0.5 text-[9px] font-extrabold tracking-[0.2em] text-[#4a2a04] uppercase">
-                      Social Proof
-                    </span>
-                    <span className="text-xs font-bold text-[#72512b]">
-                      • Customer Favorites
+                      Customer Favorites
                     </span>
                   </div>
                   <h2 className="menu-display text-xl text-[#4a2a04] sm:text-2xl mt-0.5">
-                    ⭐ MOST ORDERED
+                    MOST ORDERED
                   </h2>
                 </div>
                 <p className="text-xs font-medium text-[#5c3d16]">
@@ -1459,12 +1466,12 @@ export default function Home() {
                       <div className="flex items-center gap-1.5 min-w-0 max-w-full">
                         <VegBadge isVeg={item.isVeg} />
                         <h3
-                          className={`font-bold text-[#4a2a04] group-hover:text-[#e26a2c] transition leading-snug truncate ${
+                          className={`font-bold text-[#4a2a04] group-hover:text-[#e26a2c] transition leading-[1.15] wrap-break-word ${
                             item.name.length > 22
                               ? "text-[10px] sm:text-xs"
                               : item.name.length > 16
-                              ? "text-[11px] sm:text-xs"
-                              : "text-xs sm:text-sm"
+                                ? "text-[11px] sm:text-xs"
+                                : "text-xs sm:text-sm"
                           }`}
                         >
                           {item.name}
@@ -1614,38 +1621,35 @@ export default function Home() {
                       {/* Item Rows with Thumbnail Images & Uniform Card Styling */}
                       <div className="flex-1 divide-y divide-[#baa17d]/40 p-3 sm:p-4 space-y-2">
                         {category.items.map((item) => {
-                          const itemImgSrc =
-                            item.image ||
-                            categoryImages[item.imageKey || category.imageKey] ||
-                            categoryImages.starters;
-
                           return (
                             <div
                               key={item.name}
                               className="group flex items-center justify-between gap-3 sm:gap-4 py-3 first:pt-1 last:pb-1 rounded-xl transition px-2 hover:bg-[#ede7dc]/60"
                             >
-                              {/* Item Image Thumbnail for Every Item */}
-                              <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-xl border-2 border-[#4a2a04]/40 bg-[#ede7dc] shadow-xs transition-transform group-hover:scale-105">
-                                <Image
-                                  src={itemImgSrc}
-                                  alt={item.name}
-                                  fill
-                                  sizes="(max-width: 640px) 64px, 80px"
-                                  className="object-cover"
-                                />
-                              </div>
+                              {/* Dynamic Item Image Thumbnail */}
+                              {item.image && (
+                                <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-xl border-2 border-[#4a2a04]/40 bg-[#ede7dc] shadow-xs transition-transform group-hover:scale-105">
+                                  <Image
+                                    src={item.image}
+                                    alt={item.name}
+                                    fill
+                                    sizes="(max-width: 640px) 64px, 80px"
+                                    className="object-cover"
+                                  />
+                                </div>
+                              )}
 
                               {/* Item Details */}
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-1.5 min-w-0">
                                   <VegBadge isVeg={item.isVeg} />
                                   <span
-                                    className={`font-semibold text-[#4a2a04] leading-snug truncate ${
+                                    className={`font-semibold text-[#4a2a04] leading-[1.15] wrap-break-word ${
                                       item.name.length > 28
                                         ? "text-xs sm:text-sm"
                                         : item.name.length > 18
-                                        ? "text-sm sm:text-base"
-                                        : "text-base sm:text-lg"
+                                          ? "text-sm sm:text-base"
+                                          : "text-base sm:text-lg"
                                     }`}
                                   >
                                     <HighlightText
