@@ -158,7 +158,7 @@ function ItemBadgePill({ badge }: { badge?: ItemBadge }) {
 
   if (badge === "BESTSELLER") {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-amber-900 border border-amber-500/30">
+      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-500/15 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-amber-900 border border-amber-500/30">
         <span>⭐</span>
         <span>BESTSELLER</span>
       </span>
@@ -167,7 +167,7 @@ function ItemBadgePill({ badge }: { badge?: ItemBadge }) {
 
   if (badge === "SIGNATURE") {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-orange-500/15 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-orange-950 border border-orange-500/30">
+      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-orange-500/15 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-orange-950 border border-orange-500/30">
         <span>🔥</span>
         <span>SIGNATURE</span>
       </span>
@@ -176,14 +176,14 @@ function ItemBadgePill({ badge }: { badge?: ItemBadge }) {
 
   if (badge === "POPULAR") {
     return (
-      <span className="inline-flex items-center gap-0.5 rounded-full bg-[#baa17d]/20 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#5c3d16]">
+      <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-[#baa17d]/20 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#5c3d16]">
         <span>POPULAR</span>
       </span>
     );
   }
 
   return (
-    <span className="inline-flex items-center gap-0.5 rounded-full bg-[#4a2a04]/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#4a2a04]">
+    <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-[#4a2a04]/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#4a2a04]">
       <span>CHEF&apos;S PICK</span>
     </span>
   );
@@ -1426,43 +1426,58 @@ export default function Home() {
               </div>
 
               {/* 5-8 Curated items (Visual Hierarchy Level 1) */}
-              <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 {mostOrderedItems.map((item) => (
                   <div
                     key={item.name}
-                    className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-[#4a2a04] bg-[#f6f0e5] p-2.5 sm:p-3.5 shadow-xs transition hover:shadow-md hover:border-[#e26a2c]"
+                    className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-[#4a2a04] bg-[#f6f0e5] p-2.5 sm:p-3 shadow-xs transition hover:shadow-md hover:border-[#e26a2c]"
                   >
                     <div>
-                      <div className="flex flex-wrap items-start justify-between gap-1 sm:gap-2 mb-1.5">
-                        <div className="flex items-center gap-1.5">
-                          <VegBadge isVeg={item.isVeg} />
-                          <div className="relative h-4 w-4 shrink-0 overflow-hidden rounded-full border border-[#4a2a04]/40">
-                            <Image
-                              src={
-                                categoryImages[item.imageKey] ||
-                                categoryImages.starters
-                              }
-                              alt=""
-                              fill
-                              sizes="16px"
-                              className="object-cover"
-                            />
-                          </div>
-                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#72512b]">
-                            {item.categoryName}
-                          </span>
-                        </div>
-                        <ItemBadgePill badge={item.badge} />
+                      {/* Clean Featured Image Container */}
+                      <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#4a2a04]/30 bg-[#ede7dc] mb-2.5">
+                        <Image
+                          src={
+                            item.image ||
+                            categoryImages[item.imageKey] ||
+                            categoryImages.starters
+                          }
+                          alt={item.name}
+                          fill
+                          sizes="(max-width: 640px) 50vw, 25vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
                       </div>
 
-                      <h3 className="text-xs sm:text-sm font-bold text-[#4a2a04] group-hover:text-[#e26a2c] transition">
-                        {item.name}
-                      </h3>
-                      <p className="mt-1 text-[11px] sm:text-xs text-[#5c3d16] line-clamp-2 leading-relaxed">
-                        {item.description}
-                      </p>
+                      {/* Category Label */}
+                      <div className="mb-1">
+                        <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#72512b]">
+                          {item.categoryName}
+                        </span>
+                      </div>
+
+                      {/* Title beside Veg Badge */}
+                      <div className="flex items-center gap-1.5 min-w-0 max-w-full">
+                        <VegBadge isVeg={item.isVeg} />
+                        <h3
+                          className={`font-bold text-[#4a2a04] group-hover:text-[#e26a2c] transition leading-snug truncate ${
+                            item.name.length > 22
+                              ? "text-[10px] sm:text-xs"
+                              : item.name.length > 16
+                              ? "text-[11px] sm:text-xs"
+                              : "text-xs sm:text-sm"
+                          }`}
+                        >
+                          {item.name}
+                        </h3>
+                      </div>
+                      {item.badge && (
+                        <div className="mt-1">
+                          <ItemBadgePill badge={item.badge} />
+                        </div>
+                      )}
                     </div>
 
+                    {/* Card Footer */}
                     <div className="mt-2.5 sm:mt-3 flex flex-wrap items-center justify-between border-t border-[#baa17d]/40 pt-2 gap-1">
                       <span className="rounded-lg bg-[#ede7dc] px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs font-extrabold text-[#4a2a04] border border-[#baa17d]/60">
                         {formatPrice(item.price)}
@@ -1550,8 +1565,8 @@ export default function Home() {
                   searchQuery={searchQuery}
                 />
 
-                {/* Categories Grid (Point 6 & 7: Chunked & 3-Tier Visual Hierarchy) */}
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {/* Categories Grid (Chunked & 3-Tier Visual Hierarchy with Larger Items & Thumbnails) */}
+                <div className="grid gap-5 grid-cols-1 lg:grid-cols-2">
                   {section.categories.map((category) => (
                     <article
                       key={category.id}
@@ -1569,10 +1584,10 @@ export default function Home() {
                       }}
                       className="flex flex-col rounded-2xl border-2 border-[#4a2a04] bg-[#f6f0e5] shadow-xs transition hover:shadow-md"
                     >
-                      {/* Compact Category Header with Artwork Badge */}
-                      <div className="flex items-center justify-between gap-3 border-b-2 border-[#4a2a04] bg-[#e4d8c4] px-3.5 py-2.5 rounded-t-[14px] shadow-xs">
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 overflow-hidden rounded-xl border-2 border-[#4a2a04] bg-[#ede7dc] shadow-sm">
+                      {/* Category Header */}
+                      <div className="flex items-center justify-between gap-3 border-b-2 border-[#4a2a04] bg-[#e4d8c4] px-4 py-3 rounded-t-[14px] shadow-xs">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="relative h-11 w-11 sm:h-12 sm:w-12 shrink-0 overflow-hidden rounded-xl border-2 border-[#4a2a04] bg-[#ede7dc] shadow-sm">
                             <Image
                               src={
                                 categoryImages[category.imageKey] ||
@@ -1580,71 +1595,80 @@ export default function Home() {
                               }
                               alt={category.name}
                               fill
-                              sizes="44px"
+                              sizes="48px"
                               className="object-cover transition-transform duration-300 group-hover:scale-105"
                             />
                           </div>
-                          <h3 className="menu-heading text-sm sm:text-base font-bold leading-tight text-[#4a2a04]">
-                            {category.name}
-                          </h3>
+                          <div>
+                            <h3 className="menu-heading text-base sm:text-lg font-bold leading-tight text-[#4a2a04]">
+                              {category.name}
+                            </h3>
+                            <span className="text-xs text-[#72512b] font-medium">
+                              {category.items.length}{" "}
+                              {category.items.length === 1 ? "item" : "items"}
+                            </span>
+                          </div>
                         </div>
-                        <span className="shrink-0 rounded-full border border-[#baa17d] bg-[#ede7dc] px-2 py-0.5 text-[10px] font-bold text-[#5c3d16]">
-                          {category.items.length}{" "}
-                          {category.items.length === 1 ? "item" : "items"}
-                        </span>
                       </div>
 
-                      {/* Item Rows (Visual Hierarchy: Level 2 Badges & Level 3 Scannable Rows) */}
-                      <div className="flex-1 divide-y divide-[#baa17d]/40 p-3 space-y-1">
+                      {/* Item Rows with Thumbnail Images & Uniform Card Styling */}
+                      <div className="flex-1 divide-y divide-[#baa17d]/40 p-3 sm:p-4 space-y-2">
                         {category.items.map((item) => {
-                          const hasHighlightBadge =
-                            item.badge === "BESTSELLER" ||
-                            item.badge === "SIGNATURE" ||
-                            item.badge === "POPULAR";
+                          const itemImgSrc =
+                            item.image ||
+                            categoryImages[item.imageKey || category.imageKey] ||
+                            categoryImages.starters;
 
                           return (
                             <div
                               key={item.name}
-                              className={`group flex items-center justify-between gap-2.5 py-2 first:pt-0 last:pb-0 rounded-lg transition px-1 ${
-                                hasHighlightBadge
-                                  ? "hover:bg-[#e4d8c4]/40"
-                                  : "hover:bg-[#ede7dc]/50"
-                              }`}
+                              className="group flex items-center justify-between gap-3 sm:gap-4 py-3 first:pt-1 last:pb-1 rounded-xl transition px-2 hover:bg-[#ede7dc]/60"
                             >
-                              <div className="flex items-center gap-2 min-w-0">
-                                <VegBadge isVeg={item.isVeg} />
-                                <div className="min-w-0">
-                                  <div className="flex items-center gap-1.5 flex-wrap">
-                                    <span
-                                      className={`text-sm text-[#4a2a04] ${
-                                        hasHighlightBadge
-                                          ? "font-semibold"
-                                          : "font-medium"
-                                      }`}
-                                    >
-                                      <HighlightText
-                                        text={item.name}
-                                        highlightWords={
-                                          item.matchInfo?.highlightWords || []
-                                        }
-                                      />
-                                    </span>
-                                    <ItemBadgePill badge={item.badge} />
-                                  </div>
-                                  {item.description && (
-                                    <p className="text-[11px] text-[#72512b] line-clamp-1">
-                                      {item.description}
-                                    </p>
-                                  )}
-                                </div>
+                              {/* Item Image Thumbnail for Every Item */}
+                              <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-xl border-2 border-[#4a2a04]/40 bg-[#ede7dc] shadow-xs transition-transform group-hover:scale-105">
+                                <Image
+                                  src={itemImgSrc}
+                                  alt={item.name}
+                                  fill
+                                  sizes="(max-width: 640px) 64px, 80px"
+                                  className="object-cover"
+                                />
                               </div>
 
-                              {/* Leader line on larger screens */}
-                              <span className="hidden sm:inline-block flex-1 border-b border-dotted border-[#baa17d]/60 mx-1" />
+                              {/* Item Details */}
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1.5 min-w-0">
+                                  <VegBadge isVeg={item.isVeg} />
+                                  <span
+                                    className={`font-semibold text-[#4a2a04] leading-snug truncate ${
+                                      item.name.length > 28
+                                        ? "text-xs sm:text-sm"
+                                        : item.name.length > 18
+                                        ? "text-sm sm:text-base"
+                                        : "text-base sm:text-lg"
+                                    }`}
+                                  >
+                                    <HighlightText
+                                      text={item.name}
+                                      highlightWords={
+                                        item.matchInfo?.highlightWords || []
+                                      }
+                                    />
+                                  </span>
+                                </div>
+                                {item.badge && (
+                                  <div className="mt-1">
+                                    <ItemBadgePill badge={item.badge} />
+                                  </div>
+                                )}
+                              </div>
 
-                              <span className="shrink-0 text-sm font-bold text-[#4a2a04] bg-[#ede7dc] px-2 py-0.5 rounded-md border border-[#baa17d]/60">
-                                {formatPrice(item.price)}
-                              </span>
+                              {/* Price aligned to the right */}
+                              <div className="shrink-0 text-right pl-1">
+                                <span className="inline-block text-sm sm:text-base font-extrabold text-[#4a2a04] bg-[#ede7dc] px-2.5 py-1 rounded-lg border border-[#baa17d]/70 shadow-2xs whitespace-nowrap">
+                                  {formatPrice(item.price)}
+                                </span>
+                              </div>
                             </div>
                           );
                         })}

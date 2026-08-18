@@ -8,6 +8,7 @@ export type MenuItem = {
   description?: string;
   tags?: string[];
   imageKey?: string;
+  image?: string;
 };
 
 export type MenuCategory = {
@@ -37,6 +38,7 @@ export type FeaturedItem = {
   categoryName: string;
   sectionId: string;
   imageKey: string;
+  image?: string;
   tags: string[];
 };
 
@@ -84,7 +86,7 @@ export const menuSectionsData: MenuSection[] = [
         chunkGroup: "Starters",
         imageKey: "starters",
         items: [
-          { name: "Chilli Paneer", price: 170, isVeg: true, badge: "BESTSELLER", description: "Crispy cottage cheese tossed in spicy soy-chilli gravy with peppers.", tags: ["paneer", "cottage cheese", "spicy", "chilli", "starter", "chinese"] },
+          { name: "Chilli Paneer", price: 170, isVeg: true, badge: "BESTSELLER", description: "Crispy cottage cheese tossed in spicy soy-chilli gravy with peppers.", image: "/item-images/chilli-paneer.png", tags: ["paneer", "cottage cheese", "spicy", "chilli", "starter", "chinese"] },
           { name: "Veg Manchurian", price: 150, isVeg: true, badge: "POPULAR", tags: ["chinese", "crispy", "starter", "gravy", "manchurian"] },
           { name: "Honey Chilli Potato", price: 160, isVeg: true, badge: "POPULAR", tags: ["potato", "sweet spicy", "chilli", "starter", "fries"] },
           { name: "Crispy Veg", price: 160, isVeg: true, tags: ["chinese", "crispy", "starter", "fried"] },
@@ -150,7 +152,7 @@ export const menuSectionsData: MenuSection[] = [
         chunkGroup: "Noodles",
         imageKey: "noodles",
         items: [
-          { name: "Chicken Hakka Noodles", price: 170, isVeg: false, badge: "BESTSELLER", description: "Wok-charred thin noodles tossed with succulent chicken slivers.", tags: ["noodles", "chicken", "hakka", "chowmein"] },
+          { name: "Chicken Hakka Noodles", price: 170, isVeg: false, badge: "BESTSELLER", description: "Wok-charred thin noodles tossed with succulent chicken slivers.", image: "/item-images/chicken-hakka-noodles.png", tags: ["noodles", "chicken", "hakka", "chowmein"] },
           { name: "Chicken Schezwan Noodles", price: 180, isVeg: false, badge: "POPULAR", tags: ["noodles", "chicken", "schezwan", "spicy"] },
           { name: "Exotic Chicken Noodles", price: 170, isVeg: false, tags: ["noodles", "chicken", "chowmein"] },
           { name: "Chicken Burnt Garlic Noodles", price: 180, isVeg: false, tags: ["noodles", "chicken", "garlic"] },
@@ -208,7 +210,7 @@ export const menuSectionsData: MenuSection[] = [
         chunkGroup: "More",
         imageKey: "combo",
         items: [
-          { name: "Peri Peri Fries", price: 140, isVeg: true, badge: "BESTSELLER", tags: ["fries", "peri peri", "spicy", "chips", "potato", "snack"] },
+          { name: "Peri Peri Fries", price: 140, isVeg: true, badge: "BESTSELLER", image: "/item-images/peri-peri-fries.png", tags: ["fries", "peri peri", "spicy", "chips", "potato", "snack"] },
           { name: "Veg Fried Rice + Chilli Paneer", price: 210, isVeg: true, badge: "BESTSELLER", description: "Complete meal combo of fragrant fried rice & sizzling chilli paneer.", tags: ["combo", "meal", "fried rice", "chilli paneer", "chinese combo", "lunch", "dinner"] },
           { name: "Chicken Rice + Chilli Chicken", price: 230, isVeg: false, badge: "BESTSELLER", description: "Wholesome combo bowl with classic chicken fried rice and chilli chicken.", tags: ["combo", "meal", "chicken rice", "chilli chicken", "chinese combo", "lunch", "dinner"] },
           { name: "Cheese Mayo Fries", price: 160, isVeg: true, badge: "POPULAR", tags: ["fries", "cheese", "cheesy", "mayo", "loaded fries", "snack"] },
@@ -239,7 +241,7 @@ export const menuSectionsData: MenuSection[] = [
         chunkGroup: "Pasta",
         imageKey: "pasta",
         items: [
-          { name: "Pink Sauce Pasta", price: 220, isVeg: true, badge: "BESTSELLER", description: "Penne tossed in silky tomato-cream blush sauce with Italian herbs.", tags: ["pasta", "pink sauce", "mixed sauce", "italian", "penne", "macaroni", "creamy"] },
+          { name: "Pink Sauce Pasta", price: 220, isVeg: true, badge: "BESTSELLER", description: "Penne tossed in silky tomato-cream blush sauce with Italian herbs.", image: "/item-images/pink-sauce-pasta.png", tags: ["pasta", "pink sauce", "mixed sauce", "italian", "penne", "macaroni", "creamy"] },
           { name: "Alfredo Pasta", price: 220, isVeg: true, badge: "POPULAR", tags: ["pasta", "alfredo", "white sauce", "creamy", "cheese", "cheesy", "italian"] },
           { name: "American Macaroni Cheese Pasta", price: 270, isVeg: true, badge: "SIGNATURE", description: "Ultra-rich three-cheese macaroni baked to creamy perfection.", tags: ["pasta", "mac and cheese", "macaroni", "cheese", "cheesy", "creamy"] },
           { name: "Arrabbiata Pasta", price: 230, isVeg: true, tags: ["pasta", "arrabbiata", "red sauce", "spicy", "tomato", "italian"] },
@@ -370,7 +372,7 @@ export const menuSectionsData: MenuSection[] = [
         chunkGroup: "Pizza",
         imageKey: "pizza",
         items: [
-          { name: "Margherita Pizza", price: 190, isVeg: true, badge: "BESTSELLER", description: "San Marzano style tomato base, fresh basil & melted pure mozzarella.", tags: ["pizza", "margherita", "cheese", "mozzarella", "tomato basil", "classic", "pie"] },
+          { name: "Margherita Pizza", price: 190, isVeg: true, badge: "BESTSELLER", description: "San Marzano style tomato base, fresh basil & melted pure mozzarella.", image: "/item-images/margherita-pizza.png", tags: ["pizza", "margherita", "cheese", "mozzarella", "tomato basil", "classic", "pie"] },
           { name: "My Way 4 Way", price: 250, isVeg: false, badge: "SIGNATURE", description: "Chef's masterpiece: four quadrants of paneer, chicken, exotic veggies & pepperoni style bites.", tags: ["pizza", "four seasons", "assorted toppings", "loaded", "chicken", "paneer", "chef special"] },
           { name: "Farmhouse Garden Pizza", price: 190, isVeg: true, badge: "POPULAR", tags: ["pizza", "farmhouse", "garden fresh", "veggies", "cheese", "italian", "pie"] },
           { name: "Tandoori Chicken Pizza", price: 200, isVeg: false, badge: "POPULAR", tags: ["pizza", "chicken", "tandoori", "spicy", "cheese"] },
@@ -387,7 +389,7 @@ export const menuSectionsData: MenuSection[] = [
         chunkGroup: "Momos",
         imageKey: "momos",
         items: [
-          { name: "Chicken Steamed Momo", price: 170, isVeg: false, badge: "BESTSELLER", description: "Juicy minced chicken steamed in thin wrappers with fiery sesame dip.", tags: ["momos", "chicken", "dumpling", "dimsum", "steamed", "spicy chutney"] },
+          { name: "Chicken Steamed Momo", price: 170, isVeg: false, badge: "BESTSELLER", description: "Juicy minced chicken steamed in thin wrappers with fiery sesame dip.", image: "/item-images/chicken-steamed-momo.png", tags: ["momos", "chicken", "dumpling", "dimsum", "steamed", "spicy chutney"] },
           { name: "Chicken Butter Chilli Garlic", price: 170, isVeg: false, badge: "BESTSELLER", description: "Pan-tossed dumplings in fragrant burnt garlic chili butter.", tags: ["momos", "chicken", "dumpling", "butter chilli garlic", "spicy"] },
           { name: "Veg Steamed Momo", price: 150, isVeg: true, badge: "POPULAR", tags: ["momos", "dumpling", "dimsum", "steamed", "tibetan", "spicy chutney"] },
           { name: "Veg Butter Chilli Garlic Momo", price: 150, isVeg: true, badge: "POPULAR", tags: ["momos", "dumpling", "butter chilli garlic", "spicy", "pan fried"] },
@@ -423,7 +425,7 @@ export const menuSectionsData: MenuSection[] = [
         chunkGroup: "Cold Coffee",
         imageKey: "coffee",
         items: [
-          { name: "Classic Cold Coffee", price: 110, isVeg: true, badge: "BESTSELLER", description: "Our cafe favorite thick blended cold coffee with creamy froth.", tags: ["coffee", "cold coffee", "iced coffee", "frappe", "beverage", "caffeine", "drink", "cold"] },
+          { name: "Classic Cold Coffee", price: 110, isVeg: true, badge: "BESTSELLER", description: "Our cafe favorite thick blended cold coffee with creamy froth.", image: "/item-images/classic-cold-coffee.png", tags: ["coffee", "cold coffee", "iced coffee", "frappe", "beverage", "caffeine", "drink", "cold"] },
           { name: "The Big Sip", price: 200, isVeg: true, badge: "SIGNATURE", description: "Giant loaded frappe topped with ice cream, chocolate drizzle & wafer.", tags: ["coffee", "cold coffee", "giant shake", "thick frappe", "loaded coffee", "drink"] },
           { name: "Hazelnut Cold Coffee", price: 140, isVeg: true, badge: "POPULAR", tags: ["coffee", "hazelnut", "cold coffee", "frappe", "flavored coffee", "drink"] },
           { name: "Tiramisu Cold Coffee", price: 130, isVeg: true, badge: "POPULAR", tags: ["coffee", "tiramisu", "cold coffee", "iced coffee", "dessert coffee", "drink"] },
@@ -467,7 +469,7 @@ export const menuSectionsData: MenuSection[] = [
         chunkGroup: "Desserts",
         imageKey: "dessert",
         items: [
-          { name: "Hot Sizzling Brownie", price: 170, isVeg: true, badge: "BESTSELLER", description: "Warm gooey chocolate walnut brownie on a hot iron skillet with vanilla scoop & molten fudge.", tags: ["dessert", "brownie", "sizzling brownie", "hot chocolate", "cake", "ice cream", "sweet", "chocolate"] },
+          { name: "Hot Sizzling Brownie", price: 170, isVeg: true, badge: "BESTSELLER", description: "Warm gooey chocolate walnut brownie on a hot iron skillet with vanilla scoop & molten fudge.", image: "/item-images/hot-sizzling-brownie.png", tags: ["dessert", "brownie", "sizzling brownie", "hot chocolate", "cake", "ice cream", "sweet", "chocolate"] },
           { name: "Chocolate Ice Cream", price: 130, isVeg: true, badge: "POPULAR", tags: ["dessert", "ice cream", "chocolate", "sweet", "sundae", "cold"] },
           { name: "Vanilla Ice Cream", price: 120, isVeg: true, tags: ["dessert", "ice cream", "vanilla", "sweet", "sundae", "cold"] },
         ],
@@ -487,6 +489,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Momos",
     sectionId: "cafe-bites",
     imageKey: "momos",
+    image: "/item-images/chicken-steamed-momo.png",
     tags: ["momos", "chicken", "bestseller"],
   },
   {
@@ -498,6 +501,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Pizza",
     sectionId: "cafe-bites",
     imageKey: "pizza",
+    image: "/item-images/margherita-pizza.png",
     tags: ["pizza", "cheese", "margherita"],
   },
   {
@@ -509,6 +513,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Veg Starters",
     sectionId: "asian-kitchen",
     imageKey: "starters",
+    image: "/item-images/chilli-paneer.png",
     tags: ["paneer", "starter", "chinese"],
   },
   {
@@ -520,6 +525,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Non-Veg Noodles",
     sectionId: "asian-kitchen",
     imageKey: "noodles",
+    image: "/item-images/chicken-hakka-noodles.png",
     tags: ["noodles", "chicken", "hakka"],
   },
   {
@@ -531,6 +537,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Veg Pasta",
     sectionId: "continental",
     imageKey: "pasta",
+    image: "/item-images/pink-sauce-pasta.png",
     tags: ["pasta", "pink sauce", "italian"],
   },
   {
@@ -542,6 +549,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Cold Coffee",
     sectionId: "drinks-desserts",
     imageKey: "coffee",
+    image: "/item-images/classic-cold-coffee.png",
     tags: ["coffee", "cold coffee", "frappe"],
   },
   {
@@ -553,6 +561,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Desserts",
     sectionId: "drinks-desserts",
     imageKey: "dessert",
+    image: "/item-images/hot-sizzling-brownie.png",
     tags: ["brownie", "dessert", "chocolate"],
   },
   {
@@ -564,6 +573,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Fries",
     sectionId: "asian-kitchen",
     imageKey: "bites",
+    image: "/item-images/peri-peri-fries.png",
     tags: ["fries", "peri peri", "snack"],
   },
 ];
