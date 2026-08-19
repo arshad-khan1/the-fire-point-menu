@@ -283,11 +283,14 @@ function JumpToNavBar({
       const targetWidth = activeEl.offsetWidth;
 
       const newScrollLeft = targetLeft - containerWidth / 2 + targetWidth / 2;
+      const target = Math.max(0, newScrollLeft);
 
-      container.scrollTo({
-        left: Math.max(0, newScrollLeft),
-        behavior: "smooth",
-      });
+      if (Math.abs(container.scrollLeft - target) > 5) {
+        container.scrollTo({
+          left: target,
+          behavior: "smooth",
+        });
+      }
     });
   }, [activeChunk]);
 
@@ -391,11 +394,14 @@ export default function Home() {
           activeRect.left - containerRect.left + currentScrollLeft;
         const targetScrollLeft =
           relativeActiveLeft - containerRect.width / 2 + activeRect.width / 2;
+        const target = Math.max(0, targetScrollLeft);
 
-        container.scrollTo({
-          left: Math.max(0, targetScrollLeft),
-          behavior: "smooth",
-        });
+        if (Math.abs(container.scrollLeft - target) > 5) {
+          container.scrollTo({
+            left: target,
+            behavior: "smooth",
+          });
+        }
       });
     },
     [],
@@ -408,18 +414,18 @@ export default function Home() {
     }
   }, [activeSectionId, isInMenuSection, isScrolled, centerActivePill]);
 
-  // Auto-center active subcategory button
-  useEffect(() => {
-    centerActivePill(subcategoryNavRef.current, '[data-active="true"]');
-  }, [activeSectionId, activeSubcategoryMap, centerActivePill]);
-
   // Dynamically measure sticky header height to position sticky category headers perfectly
   useEffect(() => {
     const el = topHeaderRef.current;
     if (!el) return;
 
     const updateHeight = () => {
-      setHeaderHeight(el.offsetHeight);
+      const newHeight = Math.round(el.offsetHeight);
+      if (newHeight > 0) {
+        setHeaderHeight((prev) =>
+          Math.abs(prev - newHeight) >= 3 ? newHeight : prev,
+        );
+      }
     };
 
     updateHeight();
@@ -438,7 +444,12 @@ export default function Home() {
       const el = document.getElementById("asian-kitchen");
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      setIsInMenuSection(rect.top <= headerHeight + 120);
+      const threshold = headerHeight + 120;
+      setIsInMenuSection((prev) => {
+        if (!prev && rect.top <= threshold) return true;
+        if (prev && rect.top > threshold + 40) return false;
+        return prev;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -479,7 +490,7 @@ export default function Home() {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              setActiveSectionId(sec.id);
+              setActiveSectionId((prev) => (prev === sec.id ? prev : sec.id));
             }
           });
         },
@@ -500,10 +511,13 @@ export default function Home() {
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                setActiveSubcategoryMap((prev) => ({
-                  ...prev,
-                  [sec.id]: cat.chunkGroup,
-                }));
+                setActiveSubcategoryMap((prev) => {
+                  if (prev[sec.id] === cat.chunkGroup) return prev;
+                  return {
+                    ...prev,
+                    [sec.id]: cat.chunkGroup,
+                  };
+                });
               }
             });
           },
@@ -952,11 +966,16 @@ export default function Home() {
     }
 
     if (targetSectionId && targetChunk) {
-      setActiveSectionId(targetSectionId);
-      setActiveSubcategoryMap((prev) => ({
-        ...prev,
-        [targetSectionId!]: targetChunk!,
-      }));
+      setActiveSectionId((prev) =>
+        prev === targetSectionId ? prev : targetSectionId!,
+      );
+      setActiveSubcategoryMap((prev) => {
+        if (prev[targetSectionId!] === targetChunk!) return prev;
+        return {
+          ...prev,
+          [targetSectionId!]: targetChunk!,
+        };
+      });
     }
 
     const element = document.getElementById(categoryId);
@@ -977,7 +996,10 @@ export default function Home() {
   };
 
   const handleSubcategoryClick = (sectionId: string, chunk: string) => {
-    setActiveSubcategoryMap((prev) => ({ ...prev, [sectionId]: chunk }));
+    setActiveSubcategoryMap((prev) => {
+      if (prev[sectionId] === chunk) return prev;
+      return { ...prev, [sectionId]: chunk };
+    });
 
     if (chunk === "All") {
       scrollToSection(sectionId);
