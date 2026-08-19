@@ -15,6 +15,7 @@ import {
   MenuItem,
   menuSectionsData,
   mostOrderedItems,
+  ourSpecialityItems,
   popularQuickSearches,
   quickCravingShortcuts,
   staticPairings,
@@ -1261,7 +1262,32 @@ export default function Home() {
 
         {/* Drawer Menu Directory (Sections & Chunked Categories) */}
         <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
-          <p className="text-[11px] font-bold tracking-wider text-[#72512b] uppercase">
+          {/* Quick Jump Featured Highlights */}
+          <div className="rounded-2xl border-2 border-[#4a2a04] bg-[#e4d8c4] p-3 space-y-2 shadow-xs">
+            <p className="text-[10px] font-extrabold tracking-wider text-[#72512b] uppercase">
+              Featured Highlights
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => scrollToSection("our-speciality")}
+                className="flex items-center gap-2 rounded-xl border-2 border-[#4a2a04] bg-[#f6f0e5] px-3 py-2 text-xs font-bold text-[#4a2a04] shadow-2xs transition hover:bg-[#4a2a04] hover:text-[#f6f0e5] active:scale-95"
+              >
+                <span className="text-sm">🔥</span>
+                <span className="truncate">Our Speciality</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection("most-ordered")}
+                className="flex items-center gap-2 rounded-xl border-2 border-[#4a2a04] bg-[#f6f0e5] px-3 py-2 text-xs font-bold text-[#4a2a04] shadow-2xs transition hover:bg-[#4a2a04] hover:text-[#f6f0e5] active:scale-95"
+              >
+                <span className="text-sm">⭐</span>
+                <span className="truncate">Most Ordered</span>
+              </button>
+            </div>
+          </div>
+
+          <p className="text-[11px] font-bold tracking-wider text-[#72512b] uppercase pt-1">
             Menu Directory & Quick Jump
           </p>
           {menuSectionsData.map((sec) => (
@@ -1376,6 +1402,7 @@ export default function Home() {
                         }
                         alt={craving.label}
                         fill
+                        priority
                         sizes="44px"
                         className="object-cover"
                       />
@@ -1411,8 +1438,103 @@ export default function Home() {
               </div>
             </section>
 
+            {/* OUR SPECIALITY SECTION */}
+            <section
+              id="our-speciality"
+              aria-label="Our Speciality"
+              className="rounded-3xl border-2 border-[#4a2a04] bg-[#f6f0e5] p-4 sm:p-6 shadow-sm"
+            >
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between mb-4">
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="inline-block rounded-full bg-orange-500/20 px-2 py-0.5 text-[9px] font-extrabold tracking-[0.2em] text-[#4a2a04] uppercase border border-orange-500/30">
+                      Chef&apos;s Highlights
+                    </span>
+                  </div>
+                  <h2 className="menu-display text-xl text-[#4a2a04] sm:text-2xl mt-0.5 flex items-center gap-2">
+                    <span>🔥</span>
+                    <span>OUR SPECIALITY</span>
+                  </h2>
+                </div>
+                <p className="text-xs font-medium text-[#5c3d16]">
+                  Handcrafted signature creations loved for their unique & rich flavors.
+                </p>
+              </div>
+
+              {/* 4 Speciality items */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                {ourSpecialityItems.map((item) => (
+                  <div
+                    key={item.name}
+                    className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-[#4a2a04] bg-[#ede7dc] p-2.5 sm:p-3 shadow-xs transition hover:shadow-md hover:border-[#e26a2c]"
+                  >
+                    <div>
+                      {/* Clean Featured Image Container */}
+                      <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#4a2a04]/30 bg-[#f6f0e5] mb-2.5">
+                        <Image
+                          src={
+                            item.image ||
+                            categoryImages[item.imageKey] ||
+                            categoryImages.starters
+                          }
+                          alt={item.name}
+                          fill
+                          priority
+                          sizes="(max-width: 640px) 50vw, 25vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </div>
+
+                      {/* Category Label */}
+                      <div className="mb-1">
+                        <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#72512b]">
+                          {item.categoryName}
+                        </span>
+                      </div>
+
+                      {/* Title beside Veg Badge */}
+                      <div className="flex items-center gap-1.5 min-w-0 max-w-full">
+                        <VegBadge isVeg={item.isVeg} />
+                        <h3
+                          className={`font-bold text-[#4a2a04] group-hover:text-[#e26a2c] transition leading-[1.15] wrap-break-word ${
+                            item.name.length > 22
+                              ? "text-[10px] sm:text-xs"
+                              : item.name.length > 16
+                                ? "text-[11px] sm:text-xs"
+                                : "text-xs sm:text-sm"
+                          }`}
+                        >
+                          {item.name}
+                        </h3>
+                      </div>
+                      {item.badge && (
+                        <div className="mt-1">
+                          <ItemBadgePill badge={item.badge} />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Card Footer */}
+                    <div className="mt-2.5 sm:mt-3 flex flex-wrap items-center justify-between border-t border-[#baa17d]/40 pt-2 gap-1">
+                      <span className="rounded-lg bg-[#f6f0e5] px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs font-extrabold text-[#4a2a04] border border-[#baa17d]/60">
+                        {formatPrice(item.price)}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => scrollToSection(item.sectionId)}
+                        className="text-[10px] sm:text-[11px] font-bold text-[#72512b] hover:text-[#4a2a04] transition"
+                      >
+                        View in menu →
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             {/* POINT 3: ⭐ MOST ORDERED (Social Proof - 8 Items Maximum) */}
             <section
+              id="most-ordered"
               aria-label="Most Ordered Dishes"
               className="rounded-3xl border-2 border-[#4a2a04] bg-[#e4d8c4] p-4 sm:p-6 shadow-sm"
             >
@@ -1434,7 +1556,7 @@ export default function Home() {
 
               {/* 5-8 Curated items (Visual Hierarchy Level 1) */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                {mostOrderedItems.map((item) => (
+                {mostOrderedItems.map((item, index) => (
                   <div
                     key={item.name}
                     className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-[#4a2a04] bg-[#f6f0e5] p-2.5 sm:p-3 shadow-xs transition hover:shadow-md hover:border-[#e26a2c]"
@@ -1450,6 +1572,7 @@ export default function Home() {
                           }
                           alt={item.name}
                           fill
+                          priority={index < 4}
                           sizes="(max-width: 640px) 50vw, 25vw"
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
