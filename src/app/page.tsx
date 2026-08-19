@@ -1572,7 +1572,7 @@ export default function Home() {
                           }
                           alt={item.name}
                           fill
-                          priority={index < 4}
+                          priority
                           sizes="(max-width: 640px) 50vw, 25vw"
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />

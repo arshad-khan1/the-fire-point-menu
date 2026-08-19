@@ -98,6 +98,7 @@ export const menuSectionsData: MenuSection[] = [
             badge: "BESTSELLER",
             description:
               "Crispy cottage cheese tossed in spicy soy-chilli gravy with peppers.",
+            image: "/item-images/chilli-panner.png",
             tags: [
               "paneer",
               "cottage cheese",
@@ -393,6 +394,7 @@ export const menuSectionsData: MenuSection[] = [
             badge: "BESTSELLER",
             description:
               "Wok-charred thin noodles tossed with succulent chicken slivers.",
+            image: "/item-images/chicken-hakka-noodles.png",
             tags: ["noodles", "chicken", "hakka", "chowmein"],
           },
           {
@@ -618,6 +620,7 @@ export const menuSectionsData: MenuSection[] = [
             price: 140,
             isVeg: true,
             badge: "BESTSELLER",
+            image: "/item-images/peri-peri-fries.png",
             tags: ["fries", "peri peri", "spicy", "chips", "potato", "snack"],
           },
           {
@@ -1444,6 +1447,7 @@ export const menuSectionsData: MenuSection[] = [
             badge: "BESTSELLER",
             description:
               "San Marzano style tomato base, fresh basil & melted pure mozzarella.",
+            image: "/item-images/margherita-pizza.png",
             tags: [
               "pizza",
               "margherita",
@@ -2056,6 +2060,7 @@ export const menuSectionsData: MenuSection[] = [
             badge: "BESTSELLER",
             description:
               "Warm gooey chocolate walnut brownie on a hot iron skillet with vanilla scoop & molten fudge.",
+            image: "/item-images/hot-sizzling-brownie.png",
             tags: [
               "dessert",
               "brownie",
@@ -2123,6 +2128,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Pizza",
     sectionId: "cafe-bites",
     imageKey: "pizza",
+    image: "/item-images/margherita-pizza.png",
     tags: ["pizza", "cheese", "margherita"],
   },
   {
@@ -2134,6 +2140,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Veg Starters",
     sectionId: "asian-kitchen",
     imageKey: "starters",
+    image: "/item-images/chilli-panner.png",
     tags: ["paneer", "starter", "chinese"],
   },
   {
@@ -2145,18 +2152,21 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Non-Veg Noodles",
     sectionId: "asian-kitchen",
     imageKey: "noodles",
+    image: "/item-images/chicken-hakka-noodles.png",
     tags: ["noodles", "chicken", "hakka"],
   },
   {
-    name: "Pink Sauce Pasta",
-    price: 220,
-    isVeg: true,
+    name: "OG Chicken Pizza",
+    price: 200,
+    isVeg: false,
     badge: "BESTSELLER",
-    description: "Creamy blush pasta infused with parmesan & aromatic herbs.",
-    categoryName: "Veg Pasta",
-    sectionId: "continental",
-    imageKey: "pasta",
-    tags: ["pasta", "pink sauce", "italian"],
+    description:
+      "Signature crisp pizza loaded with seasoned tender chicken & stringy mozzarella.",
+    categoryName: "Pizza",
+    sectionId: "cafe-bites",
+    imageKey: "pizza",
+    image: "/item-images/og-chicken-pizza.png",
+    tags: ["pizza", "chicken", "classic chicken", "cheese"],
   },
   {
     name: "Classic Cold Coffee",
@@ -2180,6 +2190,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Desserts",
     sectionId: "drinks-desserts",
     imageKey: "dessert",
+    image: "/item-images/hot-sizzling-brownie.png",
     tags: ["brownie", "dessert", "chocolate"],
   },
   {
@@ -2191,6 +2202,7 @@ export const mostOrderedItems: FeaturedItem[] = [
     categoryName: "Fries",
     sectionId: "asian-kitchen",
     imageKey: "bites",
+    image: "/item-images/peri-peri-fries.png",
     tags: ["fries", "peri peri", "snack"],
   },
 ];
