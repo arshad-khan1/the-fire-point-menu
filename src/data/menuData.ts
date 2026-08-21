@@ -359,6 +359,7 @@ export const menuSectionsData: MenuSection[] = [
             badge: "SIGNATURE",
             description:
               "Street-style wok noodles packed to the brim with fresh crunchy veggies.",
+            image: "/item-images/overloaded-veg-noodles.png",
             tags: ["noodles", "loaded", "extra veggies"],
           },
           {
@@ -2327,6 +2328,7 @@ export const ourSpecialityItems: FeaturedItem[] = [
     categoryName: "Veg Noodles",
     sectionId: "asian-kitchen",
     imageKey: "noodles",
+    image: "/item-images/overloaded-veg-noodles.png",
     tags: ["noodles", "loaded", "veggies"],
   },
   {

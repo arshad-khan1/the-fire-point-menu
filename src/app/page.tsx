@@ -131,6 +131,9 @@ function formatPrice(price: number) {
   return `₹${price}`;
 }
 
+const HEADER_COLLAPSE_SCROLL_Y = 96;
+const HEADER_EXPAND_SCROLL_Y = 1;
+
 // Veg & Non-Veg Badges
 function VegBadge({ isVeg }: { isVeg: boolean }) {
   if (isVeg) {
@@ -361,13 +364,15 @@ export default function Home() {
   const [isInMenuSection, setIsInMenuSection] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Track scroll position to shrink sticky header smoothly when scrolling down with hysteresis to prevent flickering
+  // Keep the hysteresis wider than the header's height change. Collapsing the
+  // sticky header shifts the document upward, so expanding before the page is
+  // truly back at the top would make the two layouts toggle continuously.
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setIsScrolled((prev) => {
-        if (!prev && scrollY > 60) return true;
-        if (prev && scrollY < 20) return false;
+        if (!prev && scrollY >= HEADER_COLLAPSE_SCROLL_Y) return true;
+        if (prev && scrollY <= HEADER_EXPAND_SCROLL_Y) return false;
         return prev;
       });
     };
@@ -1778,6 +1783,7 @@ export default function Home() {
                                     src={item.image}
                                     alt={item.name}
                                     fill
+                                    loading={item.image === "/item-images/coconut-corriander-noodles.png" ? "eager" : "lazy"}
                                     sizes="(max-width: 640px) 64px, 80px"
                                     className="object-cover"
                                   />
